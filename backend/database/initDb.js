@@ -9,7 +9,8 @@ async function initializeDatabase() {
     // Create database
     const dbName = process.env.DB_NAME || 'dorado_pos';
     await rootPool.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\`;`);
-    console.log(`Database '${dbName}' created or already exists.`);
+    await rootPool.query(`USE \`${dbName}\`;`);
+    console.log(`Database '${dbName}' selected.`);
     
     // Read schema file
     const schemaPath = path.join(__dirname, 'schema.sql');

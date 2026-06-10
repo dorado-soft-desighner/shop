@@ -11,7 +11,8 @@ const pool = mysql.createPool({
   connectionLimit: 10,
   queueLimit: 0,
   dateStrings: true, // Return dates as strings instead of Date objects to match JSON behavior
-  decimalNumbers: true // Parse DECIMAL values as JavaScript Numbers (required for frontend .toFixed() calls)
+  decimalNumbers: true, // Parse DECIMAL values as JavaScript Numbers (required for frontend .toFixed() calls)
+  ...(process.env.DB_HOST !== 'localhost' && { ssl: { rejectUnauthorized: false } })
 });
 
 // A separate connection without a specific database to initialize the database
@@ -22,7 +23,8 @@ const rootPool = mysql.createPool({
   port: process.env.DB_PORT || 3306,
   waitForConnections: true,
   connectionLimit: 5,
-  queueLimit: 0
+  queueLimit: 0,
+  ...(process.env.DB_HOST !== 'localhost' && { ssl: { rejectUnauthorized: false } })
 });
 
 module.exports = { pool, rootPool };

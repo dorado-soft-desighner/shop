@@ -1,7 +1,4 @@
--- Create Database if not exists
-CREATE DATABASE IF NOT EXISTS dorado_pos;
-USE dorado_pos;
-
+-- Database is selected automatically by the connection pool
 -- Users table
 CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
