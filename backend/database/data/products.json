@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "barcode": "0002",
+    "name": "Dorado 88 Perfume 10ml",
+    "category": "Perfume",
+    "price": 1999,
+    "cost_price": 1400,
+    "stock_quantity": 11,
+    "low_stock_threshold": 5,
+    "image_url": ""
+  },
+  {
+    "id": 3,
+    "barcode": "3001",
+    "name": "Car Bliss Car Diffuser",
+    "category": "Car Diffuser",
+    "price": 999,
+    "cost_price": 600,
+    "stock_quantity": 29,
+    "low_stock_threshold": 5,
+    "image_url": ""
+  },
+  {
+    "id": 4,
+    "barcode": "4001",
+    "name": "Honey Kiss Reed Diffuser",
+    "category": "Room Diffuser",
+    "price": 4999,
+    "cost_price": 3500,
+    "stock_quantity": 8,
+    "low_stock_threshold": 3,
+    "image_url": ""
+  },
+  {
+    "id": 5,
+    "barcode": "5001",
+    "name": "Welcome Home 100ml ",
+    "category": "Air Freshener",
+    "price": 1999,
+    "cost_price": 1400,
+    "stock_quantity": 35,
+    "low_stock_threshold": 10,
+    "image_url": ""
+  },
+  {
+    "id": 6,
+    "barcode": "6001",
+    "name": "Safe Travel",
+    "category": "Sanitizer",
+    "price": 4999,
+    "cost_price": 3500,
+    "stock_quantity": 30,
+    "low_stock_threshold": 5,
+    "image_url": ""
+  },
+  {
+    "id": 7,
+    "barcode": "0001",
+    "name": "Dorado 33 Perfume 10ml",
+    "category": "Perfume",
+    "price": 1599,
+    "cost_price": 1230,
+    "stock_quantity": 10,
+    "low_stock_threshold": 5,
+    "image_url": ""
+  }
+]

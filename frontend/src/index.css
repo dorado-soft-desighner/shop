@@ -1,0 +1,309 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #12121e;
+  --bg-surface: rgba(30, 30, 50, 0.4);
+  --bg-glass: rgba(15, 15, 25, 0.7);
+  --border-glow: rgba(0, 242, 254, 0.15);
+  
+  --accent-cyan: #00f2fe;
+  --accent-blue: #4facfe;
+  --accent-emerald: #00f2a7;
+  --accent-rose: #ff2a5f;
+  --accent-gold: #ffd000;
+  
+  --text-primary: #f5f6fa;
+  --text-secondary: #a0a5c0;
+  --text-muted: #686c80;
+  
+  --shadow-neon-cyan: 0 0 15px rgba(0, 242, 254, 0.35);
+  --shadow-neon-emerald: 0 0 15px rgba(0, 242, 254, 0.25);
+  --shadow-neon-rose: 0 0 15px rgba(255, 42, 95, 0.35);
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  
+  font-family: 'Outfit', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: radial-gradient(circle at 50% 0%, #1e1e38 0%, #0a0a0f 70%);
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  box-shadow: var(--shadow-glass);
+}
+
+.glass-panel-glow {
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glow);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 242, 254, 0.05), inset 0 0 10px rgba(0, 242, 254, 0.05);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  color: var(--text-primary);
+  padding: 12px 16px;
+  font-size: 1rem;
+  outline: none;
+  font-family: 'Outfit', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.glass-input:focus {
+  border-color: var(--accent-cyan);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+}
+
+/* Beautiful Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-cyan);
+}
+
+/* Custom premium buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
+  border: none;
+  border-radius: 10px;
+  color: #050510;
+  font-weight: 600;
+  padding: 12px 24px;
+  cursor: pointer;
+  box-shadow: var(--shadow-neon-cyan);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-weight: 500;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ff416c 0%, var(--accent-rose) 100%);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 600;
+  padding: 12px 24px;
+  cursor: pointer;
+  box-shadow: var(--shadow-neon-rose);
+  transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(255, 42, 95, 0.6);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.03); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s infinite ease-in-out;
+}
+
+/* Categories Slider styling */
+.category-tab {
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 8px 16px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.category-tab.active {
+  background: rgba(0, 242, 254, 0.1);
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.15);
+}
+
+.category-tab:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+/* POS Product Card */
+.pos-prod-card {
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pos-prod-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 8px 24px rgba(0, 242, 254, 0.1);
+}
+
+.pos-prod-card:active {
+  transform: scale(0.97);
+}
+
+/* Receipt Print layout */
+@media print {
+  html, body, #root, main, .animate-fade-in {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+  
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 12px !important;
+    font-family: 'Courier New', Courier, monospace !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-modal-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    align-items: flex-start !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+  
+  .print-receipt-container {
+    display: block !important;
+    width: 80mm !important; /* Standard POS Thermal Width */
+    margin: 0 auto !important;
+    padding: 5mm !important;
+  }
+
+  .print-a4-container {
+    display: block !important;
+    width: 100% !important;
+    max-width: 210mm !important; /* A4 Width */
+    margin: 0 auto !important;
+    padding: 15mm !important;
+    background: #fff !important;
+    color: #000 !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 14px !important;
+  }
+
+  .print-a4-container .print-header {
+    display: block !important;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .print-a4-container .print-signatures {
+    display: flex !important;
+  }
+
+  .print-a4-container h2, .print-a4-container h3 {
+    margin: 5px 0;
+    color: #000 !important;
+  }
+
+  .print-a4-container table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 20px !important;
+  }
+
+  .print-a4-container th, .print-a4-container td {
+    border: 1px solid #000 !important;
+    padding: 10px !important;
+    color: #000 !important;
+  }
+
+  .print-a4-container .text-muted {
+    color: #333 !important;
+  }
+
+  .glass-panel, .glass-panel-glow {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+}

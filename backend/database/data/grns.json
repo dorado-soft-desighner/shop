@@ -1,0 +1,40 @@
+[
+  {
+    "id": 1,
+    "grn_no": "GRN-20260520-105600",
+    "supplier_name": "Dorado Essence",
+    "reference_no": "A22",
+    "items": [
+      {
+        "product_id": 2,
+        "product_name": "Latte de Ambra",
+        "barcode": "2001",
+        "quantity": 5,
+        "cost_price": 1400,
+        "total": 7000
+      }
+    ],
+    "total_value": 7000,
+    "created_by": "Dorado Admin",
+    "created_at": "2026-05-20T05:26:00.565Z"
+  },
+  {
+    "id": 2,
+    "grn_no": "GRN-20260521-141427",
+    "supplier_name": "Dorado ",
+    "reference_no": "Test 0001",
+    "items": [
+      {
+        "product_id": 3,
+        "product_name": "Car Bliss Car Diffuser",
+        "barcode": "3001",
+        "quantity": 10,
+        "cost_price": 600,
+        "total": 6000
+      }
+    ],
+    "total_value": 6000,
+    "created_by": "Dorado Admin",
+    "created_at": "2026-05-21T08:44:27.035Z"
+  }
+]

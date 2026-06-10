@@ -1,0 +1,391 @@
+[
+  {
+    "id": 1,
+    "invoice_no": "INV-20260519-140815",
+    "cashier_id": 2,
+    "cashier_name": "Sadun Perera",
+    "items": [
+      {
+        "product_id": 1,
+        "product_name": "Classic Cappuccino",
+        "barcode": "8901234567890",
+        "quantity": 2,
+        "price": 450,
+        "cost_price": 280,
+        "total": 900
+      },
+      {
+        "product_id": 2,
+        "product_name": "Chocolate Fudge Cake",
+        "barcode": "8901234567891",
+        "quantity": 1,
+        "price": 550,
+        "cost_price": 320,
+        "total": 550
+      }
+    ],
+    "subtotal": 1450,
+    "discount": 100,
+    "net_total": 1350,
+    "total_cost": 880,
+    "payment_method": "Cash",
+    "amount_received": 2000,
+    "change_given": 650,
+    "created_at": "2026-05-19T08:38:15.229Z"
+  },
+  {
+    "id": 2,
+    "invoice_no": "INV-20260519-143216",
+    "cashier_id": 2,
+    "cashier_name": "Sahan Prabuddha",
+    "items": [
+      {
+        "product_id": 3,
+        "product_name": "Crispy Chicken Burger",
+        "barcode": "8901234567892",
+        "quantity": 2,
+        "price": 780,
+        "cost_price": 480,
+        "total": 1560
+      }
+    ],
+    "subtotal": 1560,
+    "discount": 560,
+    "net_total": 1000,
+    "total_cost": 960,
+    "payment_method": "Card",
+    "amount_received": 1000,
+    "change_given": 0,
+    "created_at": "2026-05-19T09:02:16.786Z"
+  },
+  {
+    "id": 3,
+    "invoice_no": "INV-20260519-143233",
+    "cashier_id": 2,
+    "cashier_name": "Sahan Prabuddha",
+    "items": [
+      {
+        "product_id": 4,
+        "product_name": "Iced Latte",
+        "barcode": "8901234567893",
+        "quantity": 1,
+        "price": 420,
+        "cost_price": 240,
+        "total": 420
+      }
+    ],
+    "subtotal": 420,
+    "discount": 0,
+    "net_total": 420,
+    "total_cost": 240,
+    "payment_method": "Mobile QR",
+    "amount_received": 420,
+    "change_given": 0,
+    "created_at": "2026-05-19T09:02:33.281Z"
+  },
+  {
+    "id": 4,
+    "invoice_no": "INV-20260519-144540",
+    "cashier_id": 2,
+    "cashier_name": "Sahan Prabuddha",
+    "items": [
+      {
+        "product_id": 1,
+        "product_name": "Classic Cappuccino",
+        "barcode": "8901234567890",
+        "quantity": 1,
+        "price": 450,
+        "cost_price": 280,
+        "total": 450
+      }
+    ],
+    "subtotal": 450,
+    "discount": 0,
+    "net_total": 450,
+    "total_cost": 280,
+    "payment_method": "Cash",
+    "amount_received": 500,
+    "change_given": 50,
+    "created_at": "2026-05-19T09:15:40.147Z"
+  },
+  {
+    "id": 5,
+    "invoice_no": "INV-20260519-150553",
+    "cashier_id": 2,
+    "cashier_name": "Sahan Prabuddha",
+    "items": [
+      {
+        "product_id": 7,
+        "product_name": "Dorado 33 Perfume 10ml",
+        "barcode": "0001",
+        "quantity": 1,
+        "price": 1999,
+        "cost_price": 1400,
+        "total": 1999
+      }
+    ],
+    "subtotal": 1999,
+    "discount": 399,
+    "net_total": 1600,
+    "total_cost": 1400,
+    "payment_method": "Cash",
+    "amount_received": 1999,
+    "change_given": 399,
+    "created_at": "2026-05-19T09:35:53.435Z"
+  },
+  {
+    "id": 6,
+    "invoice_no": "INV-20260519-152924",
+    "cashier_id": 2,
+    "cashier_name": "Sahan Prabuddha",
+    "items": [
+      {
+        "product_id": 2,
+        "product_name": "Latte de Ambra",
+        "barcode": "2001",
+        "quantity": 1,
+        "price": 1999,
+        "cost_price": 1400,
+        "total": 1999
+      }
+    ],
+    "subtotal": 1999,
+    "discount": 0,
+    "net_total": 1999,
+    "total_cost": 1400,
+    "payment_method": "Card",
+    "amount_received": 1999,
+    "change_given": 0,
+    "created_at": "2026-05-19T09:59:24.238Z"
+  },
+  {
+    "id": 7,
+    "invoice_no": "INV-20260519-153018",
+    "cashier_id": 2,
+    "cashier_name": "Sahan Prabuddha",
+    "items": [
+      {
+        "product_id": 3,
+        "product_name": "Car Bliss Car Diffuser",
+        "barcode": "3001",
+        "quantity": 1,
+        "price": 999,
+        "cost_price": 600,
+        "total": 999
+      }
+    ],
+    "subtotal": 999,
+    "discount": 0,
+    "net_total": 999,
+    "total_cost": 600,
+    "payment_method": "Mobile QR",
+    "amount_received": 999,
+    "change_given": 0,
+    "created_at": "2026-05-19T10:00:18.279Z"
+  },
+  {
+    "id": 8,
+    "invoice_no": "INV-20260519-153222",
+    "cashier_id": 2,
+    "cashier_name": "Sahan Prabuddha",
+    "items": [
+      {
+        "product_id": 4,
+        "product_name": "Honey Kiss Reed Diffuser",
+        "barcode": "4001",
+        "quantity": 1,
+        "price": 4999,
+        "cost_price": 3500,
+        "total": 4999
+      }
+    ],
+    "subtotal": 4999,
+    "discount": 0,
+    "net_total": 4999,
+    "total_cost": 3500,
+    "payment_method": "Cash",
+    "amount_received": 5000,
+    "change_given": 1,
+    "created_at": "2026-05-19T10:02:22.137Z"
+  },
+  {
+    "id": 9,
+    "invoice_no": "INV-20260519-154748",
+    "cashier_id": 2,
+    "cashier_name": "Sahan Prabuddha",
+    "items": [
+      {
+        "product_id": 3,
+        "product_name": "Car Bliss Car Diffuser",
+        "barcode": "3001",
+        "quantity": 1,
+        "price": 999,
+        "cost_price": 600,
+        "total": 999,
+        "returned_quantity": 1
+      }
+    ],
+    "subtotal": 0,
+    "discount": 0,
+    "net_total": 0,
+    "total_cost": 0,
+    "payment_method": "Cash",
+    "amount_received": 999,
+    "change_given": 0,
+    "created_at": "2026-05-19T10:17:48.434Z",
+    "returned_amount": 999
+  },
+  {
+    "id": 10,
+    "invoice_no": "INV-20260519-160034",
+    "cashier_id": 2,
+    "cashier_name": "Sahan Prabuddha",
+    "items": [
+      {
+        "product_id": 2,
+        "product_name": "Latte de Ambra",
+        "barcode": "2001",
+        "quantity": 1,
+        "price": 1999,
+        "cost_price": 1400,
+        "total": 1999
+      },
+      {
+        "product_id": 4,
+        "product_name": "Honey Kiss Reed Diffuser",
+        "barcode": "4001",
+        "quantity": 1,
+        "price": 4999,
+        "cost_price": 3500,
+        "total": 4999
+      }
+    ],
+    "subtotal": 6998,
+    "discount": 0,
+    "net_total": 6998,
+    "total_cost": 4900,
+    "payment_method": "Mobile QR",
+    "amount_received": 6998,
+    "change_given": 0,
+    "created_at": "2026-05-19T10:30:34.065Z"
+  },
+  {
+    "id": 11,
+    "invoice_no": "INV-20260520-113805",
+    "cashier_id": 2,
+    "cashier_name": "Sahan Prabuddha",
+    "items": [
+      {
+        "product_id": 4,
+        "product_name": "Honey Kiss Reed Diffuser",
+        "barcode": "4001",
+        "quantity": 1,
+        "price": 4999,
+        "cost_price": 3500,
+        "total": 4999,
+        "returned_quantity": 1
+      }
+    ],
+    "subtotal": 0,
+    "discount": 499,
+    "net_total": 0,
+    "total_cost": 0,
+    "payment_method": "Cash",
+    "amount_received": 5000,
+    "change_given": 500,
+    "created_at": "2026-05-20T06:08:05.122Z",
+    "returned_amount": 4999
+  },
+  {
+    "id": 12,
+    "invoice_no": "INV-20260521-090725",
+    "cashier_id": 2,
+    "cashier_name": "Sahan Prabuddha",
+    "items": [
+      {
+        "product_id": 7,
+        "product_name": "Dorado 33 Perfume 10ml",
+        "barcode": "0001",
+        "quantity": 3,
+        "price": 1999,
+        "cost_price": 1400,
+        "total": 5997
+      },
+      {
+        "product_id": 1,
+        "product_name": "Dorado 88 Perfume 10ml",
+        "barcode": "0002",
+        "quantity": 2,
+        "price": 1999,
+        "cost_price": 1400,
+        "total": 3998
+      }
+    ],
+    "subtotal": 9995,
+    "discount": 95,
+    "net_total": 9900,
+    "total_cost": 7000,
+    "payment_method": "Card",
+    "payment_details": {
+      "type": "",
+      "refNo": "0000"
+    },
+    "amount_received": 9900,
+    "change_given": 0,
+    "created_at": "2026-05-21T03:37:25.765Z"
+  },
+  {
+    "id": 13,
+    "invoice_no": "INV-20260521-134232",
+    "cashier_id": 2,
+    "cashier_name": "Sahan Prabuddha",
+    "items": [
+      {
+        "product_id": 7,
+        "product_name": "Dorado 33 Perfume 10ml",
+        "barcode": "0001",
+        "quantity": 1,
+        "price": 1599,
+        "cost_price": 1230,
+        "total": 1599
+      }
+    ],
+    "subtotal": 1599,
+    "discount": 599,
+    "net_total": 1000,
+    "total_cost": 1230,
+    "payment_method": "Cash",
+    "amount_received": 1000,
+    "change_given": 0,
+    "created_at": "2026-05-21T08:12:32.579Z"
+  },
+  {
+    "id": 14,
+    "invoice_no": "INV-20260521-150425",
+    "cashier_id": 2,
+    "cashier_name": "Sahan Prabuddha",
+    "items": [
+      {
+        "product_id": 1,
+        "product_name": "Dorado 88 Perfume 10ml",
+        "barcode": "0002",
+        "quantity": 2,
+        "price": 1999,
+        "cost_price": 1400,
+        "total": 3998
+      }
+    ],
+    "subtotal": 3998,
+    "discount": 0,
+    "net_total": 3998,
+    "total_cost": 2800,
+    "payment_method": "Card",
+    "payment_details": {
+      "type": "Master",
+      "refNo": "000446"
+    },
+    "amount_received": 3998,
+    "change_given": 0,
+    "created_at": "2026-05-21T09:34:25.171Z"
+  }
+]

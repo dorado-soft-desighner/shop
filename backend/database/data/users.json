@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "password_hash": "$2b$10$cjOMiS8MhwsHYDEnKaxma.BWxZlLZSLLDH.pk83WlND2sv1OyMQ22",
+    "full_name": "Dorado Admin",
+    "role": "admin",
+    "status": "active"
+  },
+  {
+    "id": 2,
+    "username": "cashier",
+    "password_hash": "$2b$10$AiFX94RD63BuBo58BrJ4x..G.Yui8mO/VVqY08.YFG3JohOYHbfzO",
+    "full_name": "Sahan Prabuddha",
+    "role": "cashier",
+    "status": "active"
+  },
+  {
+    "id": 3,
+    "username": "suneth",
+    "password_hash": "$2b$10$AS0tnmLnmCF0ad1lr4ptdOC8J2yUbLwyVMgoP4FUJh/wbaGyizCHW",
+    "full_name": "Suneth Wanaguru",
+    "role": "admin",
+    "status": "active"
+  }
+]
