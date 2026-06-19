@@ -6,7 +6,7 @@ const { authenticateToken, isAdmin } = require('../middleware/auth');
 // GET /api/shifts/active - Get the cashier's current active open shift
 router.get('/active', authenticateToken, async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM shifts WHERE cashier_id = ? AND status = "open" LIMIT 1', [req.user.id]);
+    const [rows] = await pool.query("SELECT * FROM shifts WHERE cashier_id = ? AND status = 'open' LIMIT 1", [req.user.id]);
     if (rows.length === 0) {
       return res.json({ active: false });
     }
@@ -33,7 +33,7 @@ router.post('/start', authenticateToken, async (req, res) => {
       return res.status(400).json({ error: 'Opening balance and cash box counts are required.' });
     }
 
-    const [existing] = await pool.query('SELECT id FROM shifts WHERE cashier_id = ? AND status = "open"', [req.user.id]);
+    const [existing] = await pool.query("SELECT id FROM shifts WHERE cashier_id = ? AND status = 'open'", [req.user.id]);
     if (existing.length > 0) {
       return res.status(400).json({ error: 'You already have an active open session. Please end it first.' });
     }
@@ -63,7 +63,7 @@ router.post('/end', authenticateToken, async (req, res) => {
       return res.status(400).json({ error: 'Closing balance and cash box counts are required.' });
     }
 
-    const [shiftRows] = await pool.query('SELECT * FROM shifts WHERE cashier_id = ? AND status = "open" LIMIT 1', [req.user.id]);
+    const [shiftRows] = await pool.query("SELECT * FROM shifts WHERE cashier_id = ? AND status = 'open' LIMIT 1", [req.user.id]);
     if (shiftRows.length === 0) {
       return res.status(404).json({ error: 'No active session found for this cashier.' });
     }
