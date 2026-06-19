@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const { pool } = require('./database/dbConfig');
 const { runAutoMigrations } = require('./database/migrateSchema');
 
 const authRoutes = require('./routes/auth');
@@ -30,30 +29,6 @@ app.use(express.json());
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
-});
-
-app.get('/db-debug', async (req, res) => {
-  try {
-    const [tables] = await pool.query('SHOW TABLES');
-    const tableNames = tables.map(t => Object.values(t)[0]);
-
-    const [columns] = await pool.query('SHOW COLUMNS FROM shifts');
-    const columnDetails = columns.map(c => ({ field: c.Field, type: c.Type }));
-
-    res.json({
-      success: true,
-      tables: tableNames,
-      shiftsColumns: columnDetails,
-      dbHost: process.env.DB_HOST,
-      dbName: process.env.DB_NAME
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message,
-      stack: error.stack
-    });
-  }
 });
 
 // Register API Routes
