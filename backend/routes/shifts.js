@@ -136,7 +136,7 @@ router.post('/end', authenticateToken, async (req, res) => {
     res.json(updatedRows[0]);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error.' });
+    res.status(500).json({ error: error.message || 'Internal server error.' });
   }
 });
 

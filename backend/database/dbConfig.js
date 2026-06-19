@@ -12,6 +12,7 @@ const pool = mysql.createPool({
   queueLimit: 0,
   dateStrings: true, // Return dates as strings instead of Date objects to match JSON behavior
   decimalNumbers: true, // Parse DECIMAL values as JavaScript Numbers (required for frontend .toFixed() calls)
+  timezone: '+05:30',
   ...(process.env.DB_HOST !== 'localhost' && { ssl: { rejectUnauthorized: false } })
 });
 
@@ -24,6 +25,7 @@ const rootPool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 5,
   queueLimit: 0,
+  timezone: '+05:30',
   ...(process.env.DB_HOST !== 'localhost' && { ssl: { rejectUnauthorized: false } })
 });
 
