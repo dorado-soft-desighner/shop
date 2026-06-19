@@ -655,6 +655,37 @@ export default function CashierPanel({ API_URL, token, user, onLogout }) {
             width: '100%', maxWidth: '480px', padding: '36px',
             position: 'relative'
           }}>
+            <button 
+              onClick={onLogout} 
+              style={{
+                position: 'absolute',
+                top: '20px',
+                right: '20px',
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                color: 'var(--text-secondary)',
+                borderRadius: '8px',
+                padding: '6px 12px',
+                fontSize: '0.8rem',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'rgba(239, 68, 68, 0.15)';
+                e.target.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+                e.target.style.color = '#ef4444';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'rgba(255,255,255,0.05)';
+                e.target.style.borderColor = 'rgba(255,255,255,0.1)';
+                e.target.style.color = 'var(--text-secondary)';
+              }}
+            >
+              🚪 Sign Out
+            </button>
             <div style={{ textAlign: 'center', marginBottom: '24px' }}>
               <div style={{
                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
@@ -759,8 +790,25 @@ export default function CashierPanel({ API_URL, token, user, onLogout }) {
               </svg>
               Open Drawer
             </button>
-            <button onClick={() => setShowCloseShiftModal(true)} className="btn-danger" style={{ padding: '10px 16px', fontSize: '0.85rem' }}>
+             <button onClick={() => setShowCloseShiftModal(true)} className="btn-danger" style={{ padding: '10px 16px', fontSize: '0.85rem' }}>
               Shift Logout (Z-Report)
+            </button>
+            <button 
+              onClick={() => {
+                if (window.confirm("Are you sure you want to sign out? Your active shift will remain open so you can resume it later.")) {
+                  onLogout();
+                }
+              }} 
+              className="btn-secondary" 
+              style={{ 
+                padding: '10px 16px', 
+                fontSize: '0.85rem',
+                background: 'rgba(239, 68, 68, 0.1)',
+                border: '1px solid rgba(239, 68, 68, 0.4)',
+                color: '#ef4444'
+              }}
+            >
+              🚪 Sign Out
             </button>
           </div>
         </header>

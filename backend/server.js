@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const { runAutoMigrations } = require('./database/migrateSchema');
 
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/products');
@@ -54,13 +55,26 @@ app.get('/', (req, res) => {
   });
 });
 
-// Start Express Server
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`=============================================`);
-  console.log(` 🚀 DORADO POS SERVER IS RUNNING ONLINE 🚀   `);
-  console.log(`=============================================`);
-  console.log(`📡 Local Network IP: http://localhost:${PORT}`);
-  console.log(`🔒 Authentication: Enabled (JWT)`);
-  console.log(`💾 Database: MySQL Server (Online)`);
-  console.log(`=============================================`);
+// Start Express Server after running auto-migrations
+runAutoMigrations().then(() => {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`=============================================`);
+    console.log(` 🚀 DORADO POS SERVER IS RUNNING ONLINE 🚀   `);
+    console.log(`=============================================`);
+    console.log(`📡 Local Network IP: http://localhost:${PORT}`);
+    console.log(`🔒 Authentication: Enabled (JWT)`);
+    console.log(`💾 Database: MySQL Server (Online)`);
+    console.log(`=============================================`);
+  });
+}).catch(err => {
+  console.error('Migration failed, starting server anyway...', err);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`=============================================`);
+    console.log(` 🚀 DORADO POS SERVER IS RUNNING ONLINE 🚀   `);
+    console.log(`=============================================`);
+    console.log(`📡 Local Network IP: http://localhost:${PORT}`);
+    console.log(`🔒 Authentication: Enabled (JWT)`);
+    console.log(`💾 Database: MySQL Server (Online)`);
+    console.log(`=============================================`);
+  });
 });
