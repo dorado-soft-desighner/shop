@@ -591,40 +591,44 @@ export default function CashierPanel({ API_URL, token, user, onLogout }) {
   // RJ11/RJ12 drawer kick port.
   // -------------------------------------------------------
   const openCashDrawer = () => {
-    // ESC p 0 25 250 = standard drawer kick command (Pin 2)
-    // We open a print window with a tiny hidden receipt.
-    // The thermal printer processes the job and fires the drawer relay.
-    const pw = window.open('', '_blank', 'width=1,height=1,left=-1000,top=-1000');
-    if (!pw) {
-      alert('Please allow pop-ups for this site to enable cash drawer control.');
-      return;
-    }
-    // We embed the ESC/POS command as a data URI in a hidden image
-    // and trigger print - most thermal printer Windows drivers will
-    // send the drawer kick on any print job if the drawer is wired up.
-    pw.document.write(`
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <style>
-          * { margin: 0; padding: 0; }
-          body { width: 1px; height: 1px; overflow: hidden; }
-          @page { margin: 0; size: 58mm 1mm; }
-        </style>
-      </head>
-      <body>
-        <div style="font-size:1px;color:white;">.</div>
-        <script>
-          window.onload = function() {
-            window.print();
-            setTimeout(function(){ window.close(); }, 300);
-          };
-        <\/script>
-      </body>
-      </html>
-    `);
-    pw.document.close();
+    // Silent cash drawer kick using a hidden iframe.
+    // We inject a 1x1 invisible iframe that auto-prints a blank page.
+    // The thermal printer driver detects the print job and fires the
+    // drawer kick relay (ESC p command) without any visible dialog.
+
+    // Remove any previously injected drawer iframe
+    const oldFrame = document.getElementById('__drawer_kick_frame__');
+    if (oldFrame) oldFrame.remove();
+
+    const iframe = document.createElement('iframe');
+    iframe.id = '__drawer_kick_frame__';
+    iframe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;border:none;visibility:hidden;';
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { margin: 0; padding: 0; }
+    body { width: 1px; height: 1px; overflow: hidden; background: white; }
+    @page { margin: 0; size: 58mm 1mm; }
+  </style>
+</head>
+<body>
+  <div style="font-size:1px;color:white;visibility:hidden;">.</div>
+  <script>
+    window.onload = function() {
+      window.focus();
+      window.print();
+      setTimeout(function(){ window.parent.document.getElementById('__drawer_kick_frame__') && window.parent.document.getElementById('__drawer_kick_frame__').remove(); }, 1000);
+    };
+  <\/script>
+</body>
+</html>`);
+    doc.close();
   };
 
   if (checkingShift) {
