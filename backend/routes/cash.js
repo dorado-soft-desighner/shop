@@ -22,7 +22,7 @@ router.post('/', authenticateToken, async (req, res) => {
 
     // Find the active shift for the cashier
     const [shiftRows] = await pool.query(
-      'SELECT * FROM shifts WHERE cashier_id = ? AND status = "open" LIMIT 1',
+      "SELECT * FROM shifts WHERE cashier_id = ? AND status = 'open' LIMIT 1",
       [req.user.id]
     );
 
@@ -80,7 +80,7 @@ router.get('/shift/:shift_id', authenticateToken, async (req, res) => {
 router.get('/active', authenticateToken, async (req, res) => {
   try {
     const [shiftRows] = await pool.query(
-      'SELECT id FROM shifts WHERE cashier_id = ? AND status = "open" LIMIT 1',
+      "SELECT id FROM shifts WHERE cashier_id = ? AND status = 'open' LIMIT 1",
       [req.user.id]
     );
 
