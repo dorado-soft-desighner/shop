@@ -1378,8 +1378,8 @@ export default function CashierPanel({ API_URL, token, user, onLogout }) {
       {successCashTx && (
         <div style={{
           position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-          background: 'rgba(0,0,0,0.88)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          zIndex: 110, padding: '20px'
+          background: 'rgba(0,0,0,0.88)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+          zIndex: 110, padding: '40px 20px 20px 20px', overflowY: 'auto'
         }}>
           <div className="glass-panel-glow animate-fade-in" style={{
             width: '100%', maxWidth: '400px', padding: '30px',
@@ -1613,8 +1613,8 @@ export default function CashierPanel({ API_URL, token, user, onLogout }) {
           position: 'fixed',
           top: 0, left: 0, right: 0, bottom: 0,
           background: 'rgba(0,0,0,0.85)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          zIndex: 100, padding: '20px'
+          display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+          zIndex: 100, padding: '40px 20px 20px 20px', overflowY: 'auto'
         }}>
           <div className="glass-panel-glow animate-fade-in" style={{
             width: '100%', maxWidth: '400px', padding: '30px',
@@ -2010,8 +2010,8 @@ export default function CashierPanel({ API_URL, token, user, onLogout }) {
           position: 'fixed',
           top: 0, left: 0, right: 0, bottom: 0,
           background: 'rgba(0,0,0,0.85)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          zIndex: 100, padding: '20px'
+          display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+          zIndex: 100, padding: '40px 20px 20px 20px', overflowY: 'auto'
         }}>
           <div className="glass-panel-glow animate-fade-in" style={{
             width: '100%', maxWidth: '400px', padding: '30px',
