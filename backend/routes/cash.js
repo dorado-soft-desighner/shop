@@ -33,10 +33,11 @@ router.post('/', authenticateToken, async (req, res) => {
     const activeShift = shiftRows[0];
 
     // Insert the cash transaction
+    const now = new Date();
     const [result] = await pool.query(
       `INSERT INTO cash_transactions (shift_id, cashier_id, cashier_name, type, amount, reason, issued_to, created_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, NOW())`,
-      [activeShift.id, req.user.id, req.user.full_name, type, Number(amount), reason, issued_to || null]
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [activeShift.id, req.user.id, req.user.full_name, type, Number(amount), reason, issued_to || null, now]
     );
 
     // Update shift totals
