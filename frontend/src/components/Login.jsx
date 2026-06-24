@@ -42,15 +42,11 @@ export default function Login({ API_URL, onLoginSuccess }) {
     }
   };
 
-  const autofillDemo = (selectedRole) => {
+  const handleRoleChange = (selectedRole) => {
     setRoleSelection(selectedRole);
-    if (selectedRole === 'admin') {
-      setUsername('admin');
-      setPassword('admin123');
-    } else {
-      setUsername('cashier');
-      setPassword('cashier123');
-    }
+    // Clear credentials when switching roles
+    setUsername('');
+    setPassword('');
   };
 
   return (
@@ -138,7 +134,7 @@ export default function Login({ API_URL, onLoginSuccess }) {
         }}>
           <button
             type="button"
-            onClick={() => autofillDemo('cashier')}
+            onClick={() => handleRoleChange('cashier')}
             style={{
               flex: 1,
               padding: '10px',
@@ -157,7 +153,7 @@ export default function Login({ API_URL, onLoginSuccess }) {
           
           <button
             type="button"
-            onClick={() => autofillDemo('admin')}
+            onClick={() => handleRoleChange('admin')}
             style={{
               flex: 1,
               padding: '10px',
@@ -199,7 +195,7 @@ export default function Login({ API_URL, onLoginSuccess }) {
         )}
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <form onSubmit={handleSubmit} autoComplete="off" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <label style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Username</label>
             <input
@@ -208,6 +204,7 @@ export default function Login({ API_URL, onLoginSuccess }) {
               className="glass-input"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              autoComplete="off"
               required
             />
           </div>
@@ -220,6 +217,7 @@ export default function Login({ API_URL, onLoginSuccess }) {
               className="glass-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              autoComplete="new-password"
               required
             />
           </div>
