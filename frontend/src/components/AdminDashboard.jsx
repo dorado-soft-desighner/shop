@@ -1072,14 +1072,24 @@ export default function AdminDashboard({ API_URL, token, user, onLogout }) {
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                   <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Category</label>
-                  <input
-                    type="text"
+                  <select
                     required
-                    placeholder="Beverages, Mains, etc"
                     className="glass-input"
                     value={productForm.category}
                     onChange={(e) => setProductForm({ ...productForm, category: e.target.value })}
-                  />
+                  >
+                    <option value="" disabled>Select category</option>
+                    <option value="Perfumes">Perfumes</option>
+                    <option value="Roll on bottles">Roll on bottles</option>
+                    <option value="Car Diffusers">Car Diffusers</option>
+                    <option value="Reed Diffusers">Reed Diffusers</option>
+                    <option value="Car Air Freshener">Car Air Freshener</option>
+                    <option value="Room & Linen Spray">Room & Linen Spray</option>
+                    <option value="Refill Bottles">Refill Bottles</option>
+                    <option value="Toilet Deodorizer">Toilet Deodorizer</option>
+                    <option value="Toilet Seat Sanitizer">Toilet Seat Sanitizer</option>
+                    <option value="Essential Oil">Essential Oil</option>
+                  </select>
                 </div>
               </div>
 
