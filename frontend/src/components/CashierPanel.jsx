@@ -652,8 +652,8 @@ export default function CashierPanel({ API_URL, token, user, onLogout }) {
           top: 0, left: 0, right: 0, bottom: 0,
           background: 'var(--bg-primary)',
           backgroundImage: 'radial-gradient(circle at 50% 0%, #1e1e38 0%, #0a0a0f 70%)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          zIndex: 90, padding: '20px'
+          display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+          zIndex: 90, padding: '40px 20px 20px 20px', overflowY: 'auto'
         }}>
           <div className="glass-panel-glow" style={{
             width: '100%', maxWidth: '480px', padding: '36px',
@@ -1209,8 +1209,8 @@ export default function CashierPanel({ API_URL, token, user, onLogout }) {
       {showCashModal && (
         <div style={{
           position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-          background: 'rgba(0,0,0,0.88)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          zIndex: 100, padding: '20px'
+          background: 'rgba(0,0,0,0.88)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+          zIndex: 100, padding: '40px 20px 20px 20px', overflowY: 'auto'
         }}>
           <div className="glass-panel-glow animate-fade-in" style={{
             width: '100%', maxWidth: '480px', padding: '32px',
@@ -1489,8 +1489,8 @@ export default function CashierPanel({ API_URL, token, user, onLogout }) {
 
         <div style={{
           position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-          background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          zIndex: 100, padding: '20px'
+          background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+          zIndex: 100, padding: '40px 20px 20px 20px', overflowY: 'auto'
         }}>
           <div className="glass-panel-glow animate-fade-in" style={{
             width: '100%', maxWidth: '600px', padding: '30px', display: 'flex', flexDirection: 'column', gap: '20px'
@@ -1762,8 +1762,8 @@ export default function CashierPanel({ API_URL, token, user, onLogout }) {
           position: 'fixed',
           top: 0, left: 0, right: 0, bottom: 0,
           background: 'rgba(0,0,0,0.85)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          zIndex: 100, padding: '20px'
+          display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+          zIndex: 100, padding: '40px 20px 20px 20px', overflowY: 'auto'
         }}>
           <div className="glass-panel-glow animate-fade-in" style={{
             width: '100%', maxWidth: '480px', padding: '36px'
@@ -1793,8 +1793,8 @@ export default function CashierPanel({ API_URL, token, user, onLogout }) {
           top: 0, left: 0, right: 0, bottom: 0,
           background: 'var(--bg-primary)',
           backgroundImage: 'radial-gradient(circle at 50% 0%, #1e1e38 0%, #0a0a0f 70%)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          zIndex: 150, padding: '20px', overflowY: 'auto'
+          display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+          zIndex: 150, padding: '40px 20px 20px 20px', overflowY: 'auto'
         }}>
           <div className="glass-panel-glow animate-fade-in no-print" style={{
             width: '100%', maxWidth: '420px', padding: '30px', display: 'flex', flexDirection: 'column', gap: '20px'
