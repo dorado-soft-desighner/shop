@@ -59,11 +59,23 @@ router.post('/checkout', authenticateToken, async (req, res) => {
     const amtReceived = Number(amount_received || netTotal);
     const changeGiven = Math.max(0, amtReceived - netTotal);
 
-    // Generate Invoice Number: INV-YYYYMMDD-HHMMSS
+    // Generate Invoice Number: INV-26-0001
     const now = new Date();
-    const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
-    const timeStr = now.toTimeString().slice(0, 8).replace(/:/g, '');
-    const invoiceNo = `INV-${dateStr}-${timeStr}`;
+    const yearSuffix = now.getFullYear().toString().slice(-2);
+    const prefix = `INV-${yearSuffix}-`;
+    const [latestSale] = await connection.query(
+      'SELECT invoice_no FROM sales WHERE invoice_no LIKE ? ORDER BY id DESC LIMIT 1',
+      [`${prefix}%`]
+    );
+    let nextNum = 1;
+    if (latestSale.length > 0) {
+      const lastInvoice = latestSale[0].invoice_no;
+      const parts = lastInvoice.split('-');
+      if (parts.length === 3) {
+        nextNum = parseInt(parts[2], 10) + 1;
+      }
+    }
+    const invoiceNo = `${prefix}${nextNum.toString().padStart(4, '0')}`;
 
     // Decrement Stock
     for (const item of saleItems) {
@@ -222,11 +234,23 @@ router.post('/return', authenticateToken, async (req, res) => {
       });
     }
 
-    // Generate Return Credit Note ID: RET-YYYYMMDD-HHMMSS
+    // Generate Return Credit Note ID: RET-26-001
     const now = new Date();
-    const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
-    const timeStr = now.toTimeString().slice(0, 8).replace(/:/g, '');
-    const returnNo = `RET-${dateStr}-${timeStr}`;
+    const yearSuffix = now.getFullYear().toString().slice(-2);
+    const prefix = `RET-${yearSuffix}-`;
+    const [latestReturn] = await connection.query(
+      'SELECT return_no FROM returns_table WHERE return_no LIKE ? ORDER BY id DESC LIMIT 1',
+      [`${prefix}%`]
+    );
+    let nextNum = 1;
+    if (latestReturn.length > 0) {
+      const lastReturn = latestReturn[0].return_no;
+      const parts = lastReturn.split('-');
+      if (parts.length === 3) {
+        nextNum = parseInt(parts[2], 10) + 1;
+      }
+    }
+    const returnNo = `${prefix}${nextNum.toString().padStart(3, '0')}`;
 
     // Increment Stock (Inventory Restocking)
     for (const item of returnItems) {
