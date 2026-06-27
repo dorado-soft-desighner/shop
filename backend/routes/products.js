@@ -63,9 +63,10 @@ router.post('/', authenticateToken, isAdmin, async (req, res) => {
 });
 
 // PUT /api/products/:id - Update product details (Admin Only)
+// NOTE: stock_quantity is intentionally excluded - use /stock-adjust endpoint
 router.put('/:id', authenticateToken, isAdmin, async (req, res) => {
   try {
-    const { barcode, name, category, price, cost_price, stock_quantity, low_stock_threshold, image_url } = req.body;
+    const { barcode, name, category, price, cost_price, low_stock_threshold, image_url } = req.body;
 
     const product = await db.findById('products', req.params.id);
     if (!product) {
@@ -86,12 +87,65 @@ router.put('/:id', authenticateToken, isAdmin, async (req, res) => {
       category: category || product.category,
       price: price !== undefined ? Number(price) : product.price,
       cost_price: cost_price !== undefined ? Number(cost_price) : product.cost_price,
-      stock_quantity: stock_quantity !== undefined ? Number(stock_quantity) : product.stock_quantity,
+      // stock_quantity is NOT updated here - use /stock-adjust route
       low_stock_threshold: low_stock_threshold !== undefined ? Number(low_stock_threshold) : product.low_stock_threshold,
       image_url: image_url !== undefined ? image_url : product.image_url
     });
 
     res.json(updatedProduct);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error.' });
+  }
+});
+
+// POST /api/products/:id/stock-adjust - Adjust stock quantity (Admin Only + PIN)
+router.post('/:id/stock-adjust', authenticateToken, isAdmin, async (req, res) => {
+  try {
+    const { adjustment, reason, pin } = req.body;
+
+    // Verify admin PIN (stored in env as STOCK_ADJUST_PIN, default 4321)
+    const STOCK_PIN = process.env.STOCK_ADJUST_PIN || '4321';
+    if (!pin || pin.toString() !== STOCK_PIN) {
+      return res.status(403).json({ error: 'Invalid authorisation PIN. Stock adjustment denied.' });
+    }
+
+    if (!reason || reason.trim().length < 3) {
+      return res.status(400).json({ error: 'A reason for the stock adjustment is required.' });
+    }
+
+    const adjustmentNum = parseInt(adjustment);
+    if (isNaN(adjustmentNum)) {
+      return res.status(400).json({ error: 'Adjustment must be a valid integer.' });
+    }
+
+    const product = await db.findById('products', req.params.id);
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found.' });
+    }
+
+    const newQty = product.stock_quantity + adjustmentNum;
+    if (newQty < 0) {
+      return res.status(400).json({ error: `Cannot reduce stock below zero. Current stock: ${product.stock_quantity}` });
+    }
+
+    await pool.query(
+      'UPDATE products SET stock_quantity = ? WHERE id = ?',
+      [newQty, req.params.id]
+    );
+
+    console.log(`[STOCK ADJUST] Product: ${product.name} | By: ${req.user.full_name} | Change: ${adjustmentNum > 0 ? '+' : ''}${adjustmentNum} | Reason: ${reason} | Old: ${product.stock_quantity} | New: ${newQty}`);
+
+    res.json({
+      success: true,
+      product_id: product.id,
+      product_name: product.name,
+      old_quantity: product.stock_quantity,
+      adjustment: adjustmentNum,
+      new_quantity: newQty,
+      reason,
+      adjusted_by: req.user.full_name
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error.' });

@@ -21,6 +21,9 @@ export default function AdminDashboard({ API_URL, token, user, onLogout }) {
   const [grnModal, setGrnModal] = useState(false); // boolean
   const [grnDetails, setGrnDetails] = useState(null); // null or grn object
   const [returnDetails, setReturnDetails] = useState(null);
+  const [stockAdjustModal, setStockAdjustModal] = useState(null); // null or { product }
+  const [stockAdjustForm, setStockAdjustForm] = useState({ adjustment: '', reason: '', pin: '' });
+  const [stockAdjustError, setStockAdjustError] = useState('');
 
   // Financial Reports
   const [reportType, setReportType] = useState('daily');
@@ -202,6 +205,35 @@ export default function AdminDashboard({ API_URL, token, user, onLogout }) {
       alert(err.message);
     }
   };
+
+  // Stock Adjustment Handler (requires PIN)
+  const handleStockAdjust = async (e) => {
+    e.preventDefault();
+    setStockAdjustError('');
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_URL}/api/products/${stockAdjustModal.product.id}/stock-adjust`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({
+          adjustment: parseInt(stockAdjustForm.adjustment),
+          reason: stockAdjustForm.reason,
+          pin: stockAdjustForm.pin
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Adjustment failed.');
+      alert(`✅ Stock adjusted successfully!\n${data.product_name}: ${data.old_quantity} → ${data.new_quantity}`);
+      setStockAdjustModal(null);
+      setStockAdjustForm({ adjustment: '', reason: '', pin: '' });
+      loadProducts();
+    } catch (err) {
+      setStockAdjustError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   // Staff CRUD Handlers
   const handleStaffSubmit = async (e) => {
@@ -528,6 +560,17 @@ export default function AdminDashboard({ API_URL, token, user, onLogout }) {
                               style={{ padding: '6px 12px', fontSize: '0.75rem', borderRadius: '6px' }}
                             >
                               Edit
+                            </button>
+                            <button
+                              onClick={() => {
+                                setStockAdjustModal({ product: prod });
+                                setStockAdjustForm({ adjustment: '', reason: '', pin: '' });
+                                setStockAdjustError('');
+                              }}
+                              className="btn-primary"
+                              style={{ padding: '6px 12px', fontSize: '0.75rem', borderRadius: '6px', background: 'linear-gradient(135deg, #f59e0b, #d97706)' }}
+                            >
+                              📦 Stock
                             </button>
                             <button
                               onClick={() => deleteProduct(prod.id)}
@@ -1132,14 +1175,22 @@ export default function AdminDashboard({ API_URL, token, user, onLogout }) {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Initial Stock Quantity</label>
+                  <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                    {productModal.mode === 'add' ? 'Initial Stock Quantity' : 'Current Stock Qty (read-only)'}
+                  </label>
                   <input
                     type="number"
-                    required
+                    required={productModal.mode === 'add'}
+                    readOnly={productModal.mode === 'edit'}
                     className="glass-input"
                     value={productForm.stock_quantity}
-                    onChange={(e) => setProductForm({ ...productForm, stock_quantity: e.target.value })}
+                    onChange={(e) => productModal.mode === 'add' && setProductForm({ ...productForm, stock_quantity: e.target.value })}
+                    style={productModal.mode === 'edit' ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                    title={productModal.mode === 'edit' ? 'Use the 📦 Stock button to adjust stock levels' : ''}
                   />
+                  {productModal.mode === 'edit' && (
+                    <p style={{ fontSize: '0.72rem', color: 'var(--accent-gold)', margin: '2px 0 0 0' }}>⚠️ Use the Stock Adjustment option to change stock levels.</p>
+                  )}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
@@ -1168,9 +1219,129 @@ export default function AdminDashboard({ API_URL, token, user, onLogout }) {
       )}
 
       {/* ==================================================== */}
+      {/* MODAL: STOCK ADJUSTMENT (PIN PROTECTED)              */}
+      {/* ==================================================== */}
+      {stockAdjustModal && (
+        <div className="no-print" style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(0,0,0,0.88)', display: 'flex',
+          alignItems: 'flex-start', justifyContent: 'center',
+          zIndex: 110, padding: '40px 20px 20px 20px', overflowY: 'auto'
+        }}>
+          <div className="glass-panel-glow animate-fade-in" style={{
+            width: '100%', maxWidth: '460px', padding: '30px',
+            display: 'flex', flexDirection: 'column', gap: '18px'
+          }}>
+            {/* Header */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: '800', margin: '0 0 4px 0' }}>📦 Stock Adjustment</h3>
+                <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', margin: 0 }}>
+                  {stockAdjustModal.product.name}
+                </p>
+              </div>
+              <button onClick={() => setStockAdjustModal(null)} className="btn-secondary" style={{ padding: '6px 12px', fontSize: '0.75rem' }}>
+                Cancel
+              </button>
+            </div>
+
+            {/* Current Stock Info */}
+            <div style={{
+              background: 'rgba(0,242,167,0.05)', border: '1px solid rgba(0,242,167,0.2)',
+              borderRadius: '8px', padding: '12px',
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center'
+            }}>
+              <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Current Stock:</span>
+              <span style={{ fontSize: '1.3rem', fontWeight: '800', color: 'var(--accent-emerald)' }}>
+                {stockAdjustModal.product.stock_quantity} units
+              </span>
+            </div>
+
+            <form onSubmit={handleStockAdjust} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              {/* Adjustment Amount */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                  Adjustment Quantity <span style={{ color: 'var(--accent-cyan)' }}>(+ to add, - to remove)</span>
+                </label>
+                <input
+                  type="number"
+                  required
+                  className="glass-input"
+                  placeholder="e.g. +10 or -5"
+                  value={stockAdjustForm.adjustment}
+                  onChange={(e) => setStockAdjustForm({ ...stockAdjustForm, adjustment: e.target.value })}
+                  style={{ fontSize: '1.1rem', fontWeight: '600' }}
+                />
+                {stockAdjustForm.adjustment && !isNaN(parseInt(stockAdjustForm.adjustment)) && (
+                  <p style={{ fontSize: '0.8rem', color: 'var(--accent-gold)', margin: '2px 0 0 0' }}>
+                    New Stock: {stockAdjustModal.product.stock_quantity + parseInt(stockAdjustForm.adjustment)} units
+                  </p>
+                )}
+              </div>
+
+              {/* Reason */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Reason for Adjustment <span style={{ color: 'var(--accent-rose)' }}>*</span></label>
+                <select
+                  className="glass-input"
+                  value={stockAdjustForm.reason}
+                  onChange={(e) => setStockAdjustForm({ ...stockAdjustForm, reason: e.target.value })}
+                  required
+                >
+                  <option value="">Select reason...</option>
+                  <option value="Physical count correction">Physical count correction</option>
+                  <option value="Damaged / expired stock removal">Damaged / expired stock removal</option>
+                  <option value="Transfer to another branch">Transfer to another branch</option>
+                  <option value="Initial stock setup">Initial stock setup</option>
+                  <option value="Supplier return">Supplier return</option>
+                  <option value="Other adjustment">Other adjustment</option>
+                </select>
+              </div>
+
+              {/* Authorisation PIN */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <label style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                  🔐 Authorisation PIN <span style={{ color: 'var(--accent-rose)' }}>*</span>
+                </label>
+                <input
+                  type="password"
+                  required
+                  maxLength={6}
+                  className="glass-input"
+                  placeholder="Enter PIN to authorise"
+                  value={stockAdjustForm.pin}
+                  onChange={(e) => setStockAdjustForm({ ...stockAdjustForm, pin: e.target.value })}
+                  autoComplete="off"
+                />
+                <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', margin: '2px 0 0 0' }}>
+                  Contact your system administrator if you don't have the adjustment PIN.
+                </p>
+              </div>
+
+              {/* Error */}
+              {stockAdjustError && (
+                <div style={{
+                  background: 'rgba(255,42,95,0.1)', border: '1px solid var(--accent-rose)',
+                  borderRadius: '8px', padding: '10px 14px', fontSize: '0.85rem', color: 'var(--accent-rose)'
+                }}>
+                  ⚠️ {stockAdjustError}
+                </div>
+              )}
+
+              {/* Submit */}
+              <button type="submit" disabled={loading} className="btn-primary" style={{ padding: '12px', fontSize: '0.9rem', fontWeight: '700' }}>
+                {loading ? 'Processing...' : '✅ Confirm Stock Adjustment'}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ==================================================== */}
       {/* MODAL 2: ADD / EDIT STAFF FORM */}
       {/* ==================================================== */}
       {staffModal && (
+
         <div className="no-print" style={{
           position: 'fixed',
           top: 0, left: 0, right: 0, bottom: 0,
